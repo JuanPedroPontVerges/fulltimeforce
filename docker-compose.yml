@@ -1,0 +1,49 @@
+version: '3.1'
+
+services:
+  api:
+    image: backstage-be
+    container_name: backstage-be-api
+    build:
+      context: .
+    ports:
+      - '3000:3000'
+    depends_on:
+      - postgres
+    volumes:
+      - ./src:/usr/src/app/src
+    networks:
+      - default
+    env_file:
+      - .env 
+
+  postgres:
+    image: postgres:10.4-alpine
+    container_name: backstage-be-postgres
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - default
+    env_file:
+      - .env
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: backstage-be-pgadmin
+    ports:
+      - '8888:80'
+    volumes:
+      - admin_data:/var/lib/pgadmin
+    networks:
+      - default
+    env_file:
+      - .env
+
+volumes:
+  db_data:
+  admin_data:
+
+networks:
+  default:
+    name: backstage-be-net
+    driver: bridge
