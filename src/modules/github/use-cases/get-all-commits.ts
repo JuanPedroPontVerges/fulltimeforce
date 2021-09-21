@@ -7,7 +7,11 @@ export class GetAllCommits {
   async byRepo(repo: string): Promise<AllGitHubCommitsOutput[]> {
     const url = `https://api.github.com/repos/JuanPedroPontVerges/${repo}/commits`;
     try {
-      const commits = await axios.get(url);
+      const commits = await axios.get(url, {
+        headers: {
+          Authorization: 'Bearer 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',
+        },
+      });
       return commits.data as AllGitHubCommitsOutput[];
     } catch (err) {
       console.log('err', err);
