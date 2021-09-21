@@ -9,7 +9,7 @@ export class GetAllCommits {
     try {
       const commits = await axios.get(url, {
         headers: {
-          Authorization: 'Token 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',
+          Authorization: 'Token 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',
         },
       });
       return commits.data as AllGitHubCommitsOutput[];
