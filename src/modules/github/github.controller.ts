@@ -1,14 +1,15 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Param } from '@nestjs/common';
 import { AllGitHubCommitsDto } from 'src/modules/github/dtos/all-github-commits.dto';
 import { GetAllCommits } from 'src/modules/github/use-cases/get-all-commits';
 
 @Controller('github')
 export class GitHubController {
   constructor(private getAllCommits: GetAllCommits) {}
-  @Get()
-  async executeGetAllCommitsByRepo(): Promise<AllGitHubCommitsDto[]> {
-    const commits = await this.getAllCommits.byRepo('fulltimeforce-be');
-    console.log('commits', commits);
+  @Get(':repo/commits')
+  async executeGetAllCommitsByRepo(
+    @Param('repo') repo: string,
+  ): Promise<AllGitHubCommitsDto[]> {
+    const commits = await this.getAllCommits.byRepo(repo);
     return commits.map((commit) => {
       return {
         id: commit.sha,
