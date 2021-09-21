@@ -17,6 +17,7 @@ export class GitHubController {
         message: commit.commit.message,
         avatarUrl: commit.author.avatar_url,
         profileUrl: commit.author.url,
+        date: commit.commit.author.date,
       };
     });
   }

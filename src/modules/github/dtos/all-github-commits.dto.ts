@@ -4,4 +4,5 @@ export interface AllGitHubCommitsDto {
   message: string;
   avatarUrl: string;
   profileUrl: string;
+  date: Date;
 }
