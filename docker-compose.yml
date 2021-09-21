@@ -1,9 +1,9 @@
-version: '3.1'
+version: '0.1'
 
 services:
   api:
-    image: backstage-be
-    container_name: backstage-be-api
+    image: fulltimeforce-be
+    container_name: fulltimeforce-be-api
     build:
       context: .
     ports:
@@ -12,38 +12,27 @@ services:
       - postgres
     volumes:
       - ./src:/usr/src/app/src
-    networks:
-      - default
     env_file:
       - .env 
 
   postgres:
     image: postgres:10.4-alpine
-    container_name: backstage-be-postgres
+    container_name: fulltimeforce-be-postgres
     volumes:
       - db_data:/var/lib/postgresql/data
-    networks:
-      - default
     env_file:
       - .env
 
   pgadmin:
     image: dpage/pgadmin4
-    container_name: backstage-be-pgadmin
+    container_name: fulltimeforce-be-pgadmin
     ports:
       - '8888:80'
     volumes:
       - admin_data:/var/lib/pgadmin
-    networks:
-      - default
     env_file:
       - .env
 
 volumes:
   db_data:
   admin_data:
-
-networks:
-  default:
-    name: backstage-be-net
-    driver: bridge
